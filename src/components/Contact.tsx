@@ -1,31 +1,8 @@
 
-import React, { useState } from 'react';
-import { Mail, Phone, MapPin, Send, Github, Linkedin, Twitter } from 'lucide-react';
+import React from 'react';
+import { Mail, Phone, MapPin, Github, Linkedin, Twitter } from 'lucide-react';
 
 const Contact = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: ''
-  });
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Handle form submission here
-    console.log('Form submitted:', formData);
-    // You can integrate with services like EmailJS, Netlify Forms, or your own backend
-    alert('Thank you for your message! I\'ll get back to you soon.');
-    setFormData({ name: '', email: '', subject: '', message: '' });
-  };
-
   const contactInfo = [
     {
       icon: <Mail className="w-6 h-6 text-blue-400" />,
@@ -82,21 +59,21 @@ const Contact = () => {
           </p>
         </div>
         
-        <div className="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto">
+        <div className="max-w-4xl mx-auto">
           {/* Contact Information */}
-          <div>
-            <h3 className="text-2xl font-bold text-white mb-8">Let's Connect</h3>
+          <div className="mb-12">
+            <h3 className="text-2xl font-bold text-white mb-8 text-center">Let's Connect</h3>
             
-            <div className="space-y-6 mb-8">
+            <div className="grid md:grid-cols-3 gap-6 mb-12">
               {contactInfo.map((info, index) => (
                 <a 
                   key={index}
                   href={info.link}
-                  className="flex items-center p-4 bg-gray-800/50 rounded-xl border border-gray-700/50 hover:border-gray-600/50 transition-all duration-300 hover:scale-105 group"
+                  className="flex flex-col items-center text-center p-6 bg-gray-800/50 rounded-xl border border-gray-700/50 hover:border-gray-600/50 transition-all duration-300 hover:scale-105 group"
                 >
-                  <div className="mr-4">{info.icon}</div>
+                  <div className="mb-4">{info.icon}</div>
                   <div>
-                    <h4 className="text-white font-semibold">{info.title}</h4>
+                    <h4 className="text-white font-semibold mb-2">{info.title}</h4>
                     <p className="text-gray-300 group-hover:text-white transition-colors">
                       {info.value}
                     </p>
@@ -105,88 +82,22 @@ const Contact = () => {
               ))}
             </div>
             
-            <div>
-              <h4 className="text-white font-semibold mb-4">Follow Me</h4>
-              <div className="flex space-x-4">
+            <div className="text-center">
+              <h4 className="text-white font-semibold mb-6 text-xl">Follow Me</h4>
+              <div className="flex justify-center space-x-6">
                 {socialLinks.map((social, index) => (
                   <a 
                     key={index}
                     href={social.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`p-3 bg-gray-800/50 rounded-full border border-gray-700/50 hover:border-gray-600/50 transition-all duration-300 hover:scale-110 text-gray-300 ${social.color}`}
+                    className={`p-4 bg-gray-800/50 rounded-full border border-gray-700/50 hover:border-gray-600/50 transition-all duration-300 hover:scale-110 text-gray-300 ${social.color}`}
                   >
                     {social.icon}
                   </a>
                 ))}
               </div>
             </div>
-          </div>
-          
-          {/* Contact Form */}
-          <div>
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid md:grid-cols-2 gap-6">
-                <div>
-                  <label className="block text-gray-300 font-medium mb-2">Name</label>
-                  <input 
-                    type="text"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    required
-                    className="w-full p-4 bg-gray-800/50 border border-gray-700/50 rounded-xl text-white placeholder-gray-400 focus:border-blue-400 focus:outline-none transition-colors"
-                    placeholder="Your Name"
-                  />
-                </div>
-                <div>
-                  <label className="block text-gray-300 font-medium mb-2">Email</label>
-                  <input 
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                    className="w-full p-4 bg-gray-800/50 border border-gray-700/50 rounded-xl text-white placeholder-gray-400 focus:border-blue-400 focus:outline-none transition-colors"
-                    placeholder="your.email@example.com"
-                  />
-                </div>
-              </div>
-              
-              <div>
-                <label className="block text-gray-300 font-medium mb-2">Subject</label>
-                <input 
-                  type="text"
-                  name="subject"
-                  value={formData.subject}
-                  onChange={handleChange}
-                  required
-                  className="w-full p-4 bg-gray-800/50 border border-gray-700/50 rounded-xl text-white placeholder-gray-400 focus:border-blue-400 focus:outline-none transition-colors"
-                  placeholder="Project Discussion"
-                />
-              </div>
-              
-              <div>
-                <label className="block text-gray-300 font-medium mb-2">Message</label>
-                <textarea 
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  required
-                  rows={6}
-                  className="w-full p-4 bg-gray-800/50 border border-gray-700/50 rounded-xl text-white placeholder-gray-400 focus:border-blue-400 focus:outline-none transition-colors resize-none"
-                  placeholder="Tell me about your project or idea..."
-                ></textarea>
-              </div>
-              
-              <button 
-                type="submit"
-                className="w-full flex items-center justify-center space-x-2 p-4 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-xl font-semibold hover:from-blue-600 hover:to-purple-700 transition-all duration-300 hover:scale-105"
-              >
-                <Send size={20} />
-                <span>Send Message</span>
-              </button>
-            </form>
           </div>
         </div>
       </div>
